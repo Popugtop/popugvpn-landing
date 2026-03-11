@@ -1,0 +1,32 @@
+# PopugVPN Landing Page — Caddyfile snippet
+#
+# Вставь этот блок в свой основной /etc/caddy/Caddyfile
+# Caddy автоматически получит и обновит TLS-сертификаты (Let's Encrypt).
+#
+# Убедись, что DNS-записи A/AAAA для popugvpn.app и www.popugvpn.app
+# указывают на IP этого сервера перед запуском.
+
+popugvpn.app, www.popugvpn.app {
+    # Проксируем трафик на контейнер landing (порт 8080)
+    reverse_proxy localhost:8080
+
+    # Сжатие ответов
+    encode zstd gzip
+
+    # Заголовки безопасности
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        -Server
+    }
+
+    # Логи (опционально)
+    log {
+        output file /var/log/caddy/popugvpn-landing.log {
+            roll_size 10mb
+            roll_keep 5
+        }
+    }
+}

@@ -1,0 +1,12 @@
+node_modules
+dist
+.git
+.gitignore
+.DS_Store
+*.log
+npm-debug.log*
+.env
+.env.*
+README.md
+Caddyfile_snippet.txt
+screen*.png
