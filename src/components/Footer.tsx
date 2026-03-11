@@ -1,4 +1,4 @@
-import { Shield, Send, Bot } from 'lucide-react'
+import { Send, Bot, LayoutDashboard } from 'lucide-react'
 
 interface Props {
   brand: {
@@ -18,9 +18,7 @@ export default function Footer({ brand }: Props) {
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-70">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-accent-gradient">
-              <Shield className="h-3.5 w-3.5 text-white" strokeWidth={2.5} />
-            </div>
+            <img src="/vpn_logo.jpeg" alt={brand.name} className="h-7 w-7 rounded-lg object-cover" />
             <span className="text-sm font-semibold text-white">{brand.name}</span>
           </a>
 
@@ -30,8 +28,9 @@ export default function Footer({ brand }: Props) {
               href={brand.cabinetUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-slate-300"
+              className="flex items-center gap-1.5 transition-colors hover:text-slate-300"
             >
+              <LayoutDashboard className="h-3.5 w-3.5" />
               Личный кабинет
             </a>
             <a

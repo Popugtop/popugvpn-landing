@@ -1,4 +1,4 @@
-import { Shield, ExternalLink } from 'lucide-react'
+import { ExternalLink } from 'lucide-react'
 
 interface Props {
   brand: { name: string; cabinetUrl: string }
@@ -14,9 +14,7 @@ export default function Header({ brand, hero }: Props) {
           href="/"
           className="flex items-center gap-2.5 transition-opacity hover:opacity-80"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-gradient shadow-accent-glow">
-            <Shield className="h-4 w-4 text-white" strokeWidth={2.5} />
-          </div>
+          <img src="/vpn_logo.jpeg" alt={brand.name} className="h-8 w-8 rounded-lg object-cover" />
           <span className="text-base font-semibold tracking-tight text-white">
             {brand.name}
           </span>

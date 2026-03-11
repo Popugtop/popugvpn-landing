@@ -1,18 +1,19 @@
-import { ArrowRight, Lock, Zap, Globe } from 'lucide-react'
+import { ArrowRight, ShieldCheck, Zap, Globe, Send } from 'lucide-react'
 import TerminalWindow from './TerminalWindow'
 
 interface Props {
   hero: { title: string; subtitle: string; buttonText: string }
   cabinetUrl: string
+  telegramChannel: string
 }
 
 const floatingBadges = [
-  { icon: Lock, label: 'Зашифровано' },
-  { icon: Zap,  label: '1 Gbit/s'   },
-  { icon: Globe,label: '11 локаций' },
+  { icon: ShieldCheck, label: 'Приватность' },
+  { icon: Zap,    label: '1 Gbit/s'  },
+  { icon: Globe,  label: '11 локаций'},
 ]
 
-export default function Hero({ hero, cabinetUrl }: Props) {
+export default function Hero({ hero, cabinetUrl, telegramChannel }: Props) {
   return (
     <section className="relative overflow-hidden pt-16">
       <div className="pointer-events-none absolute inset-0 bg-hero-glow" />
@@ -20,7 +21,6 @@ export default function Hero({ hero, cabinetUrl }: Props) {
       <div className="pointer-events-none absolute right-0 top-1/3 h-[300px] w-[300px] rounded-full bg-purple-600/10 blur-[100px]" />
 
       <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-        {/* 2-column layout on large screens */}
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-16">
 
           {/* Left: text content */}
@@ -56,6 +56,15 @@ export default function Hero({ hero, cabinetUrl }: Props) {
                 className="rounded-xl border border-border-subtle px-7 py-3.5 text-base font-medium text-slate-300 transition-all duration-200 hover:border-accent/40 hover:bg-accent-muted hover:text-white"
               >
                 Смотреть тарифы
+              </a>
+              <a
+                href={telegramChannel}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-xl border border-border-subtle px-5 py-3.5 text-base font-medium text-slate-400 transition-all duration-200 hover:border-sky-500/40 hover:bg-sky-500/10 hover:text-sky-400"
+              >
+                <Send className="h-4 w-4" />
+                Канал
               </a>
             </div>
 

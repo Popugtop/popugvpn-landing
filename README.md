@@ -30,10 +30,12 @@ popugvpn-landing/
 │   │   └── config.json          # Весь контент: тексты, тарифы, ссылки
 │   ├── components/
 │   │   ├── Header.tsx           # Шапка: лого + кнопка кабинета
-│   │   ├── Hero.tsx             # Главный экран: заголовок, CTA, терминал
+│   │   ├── Hero.tsx             # Главный экран: заголовок, CTA, кнопка канала, терминал
 │   │   ├── TerminalWindow.tsx   # Анимированный псевдо-терминал
 │   │   ├── Marquee.tsx          # Бегущая строка с характеристиками
+│   │   ├── Trial.tsx            # Блок бесплатного пробного периода
 │   │   ├── Features.tsx         # Сетка преимуществ (4 карточки)
+│   │   ├── Servers.tsx          # Список локаций (11 серверов)
 │   │   ├── Pricing.tsx          # Тарифы (3 карточки)
 │   │   └── Footer.tsx
 │   ├── hooks/
@@ -42,7 +44,8 @@ popugvpn-landing/
 │   ├── main.tsx
 │   └── index.css
 ├── public/
-│   └── favicon.svg
+│   ├── favicon.svg
+│   └── vpn_logo.jpeg            # Логотип (Header + Footer)
 ├── index.html
 ├── vite.config.ts
 ├── tailwind.config.js

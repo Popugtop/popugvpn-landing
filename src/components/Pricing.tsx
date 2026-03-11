@@ -114,7 +114,7 @@ export default function Pricing({ pricing, cabinetUrl }: Props) {
         </div>
 
         <p className="mt-8 text-center text-sm text-slate-500">
-          Оплата через Telegram Bot · Мгновенная активация · Без подписок
+          Оплата через Telegram Bot или Личный кабинет · Мгновенная активация · Без подписок
         </p>
       </div>
     </section>
