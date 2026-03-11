@@ -203,12 +203,42 @@ docker compose down              # остановить
 
 ---
 
-## Обновление тарифов
+## Обновление контента (тарифы, тексты, ссылки)
 
-Редактируй `src/data/config.json`, затем пересобери:
+Всё редактируется в одном файле — `src/data/config.json`. Никакого знания React не нужно.
+
+После правок — закоммить и запушить:
 
 ```bash
-# На сервере
+git add src/data/config.json
+git commit -m "update content"
+git push
+```
+
+Затем на сервере подтянуть и пересобрать:
+
+```bash
+cd /opt/popugvpn-landing
+git pull
+docker compose up -d --build
+```
+
+---
+
+## Обновление кода (новые компоненты, правки вёрстки)
+
+После любых изменений в `src/` — пересобрать локально, проверить, запушить:
+
+```bash
+# Локально — проверить что собирается без ошибок
+npm run build
+
+# Закоммитить изменения
+git add .
+git commit -m "your message"
+git push
+
+# На сервере — подтянуть и перебилдить Docker-образ
 cd /opt/popugvpn-landing
 git pull
 docker compose up -d --build
