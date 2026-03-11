@@ -1,6 +1,7 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Marquee from './components/Marquee'
+import Trial from './components/Trial'
 import Features from './components/Features'
 import Pricing from './components/Pricing'
 import Footer from './components/Footer'
@@ -13,6 +14,7 @@ export default function App() {
       <main>
         <Hero hero={config.hero} cabinetUrl={config.brand.cabinetUrl} />
         <Marquee items={config.marquee} />
+        <Trial trial={config.trial} cabinetUrl={config.brand.cabinetUrl} />
         <Features features={config.features} />
         <Pricing pricing={config.pricing} cabinetUrl={config.brand.cabinetUrl} />
       </main>

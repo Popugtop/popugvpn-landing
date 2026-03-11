@@ -14,7 +14,7 @@ interface Props {
 }
 
 const perks = [
-  'Все протоколы (VLESS, Shadowsocks)',
+  'Протокол VLESS + Reality',
   'Все 11 локаций',
   'Без ограничений по скорости',
   'Поддержка 24/7',

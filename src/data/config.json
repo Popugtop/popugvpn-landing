@@ -5,6 +5,17 @@
     "telegramChannel": "https://t.me/PopugVPN",
     "telegramBot": "https://t.me/PopugVPN_bot"
   },
+  "trial": {
+    "title": "Попробуй бесплатно",
+    "subtitle": "3 дня без оплаты — убедись сам",
+    "perks": [
+      { "icon": "calendar", "text": "3 дня бесплатно" },
+      { "icon": "database", "text": "30 ГБ трафика" },
+      { "icon": "monitor",  "text": "2 устройства" },
+      { "icon": "globe",    "text": "Все серверы" }
+    ],
+    "buttonText": "Получить пробный период"
+  },
   "hero": {
     "title": "Свободный интернет без границ",
     "subtitle": "Быстрый, безопасный и безлимитный VPN для любых устройств.",
