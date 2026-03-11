@@ -122,230 +122,68 @@ npm run preview    # предпросмотр → http://localhost:4173
 
 ## Деплой на сервер
 
-### Что нужно на сервере
-
-- Ubuntu 22.04 / Debian 12 (или любой Linux с systemd)
-- Docker + Docker Compose
-- Caddy 2
-- Домен с настроенными DNS-записями
+**Требования:** сервер с Ubuntu/Debian, домен направленный на IP сервера.
 
 ---
 
-### Шаг 1 — Настрой DNS
-
-В панели своего DNS-провайдера добавь записи:
-
-```
-A     popugvpn.app      →  <IP сервера>
-A     www.popugvpn.app  →  <IP сервера>
-```
-
-Проверь через `ping popugvpn.app` — должен ответить твой сервер.
-DNS может обновляться до 24 часов, но обычно за 5–15 минут.
-
----
-
-### Шаг 2 — Установи Docker
+### 1. Установи Docker
 
 ```bash
-# Обновить пакеты
-sudo apt update && sudo apt upgrade -y
-
-# Установить Docker одной командой
-curl -fsSL https://get.docker.com | sudo sh
-
-# Добавить своего пользователя в группу docker (без sudo для docker-команд)
-sudo usermod -aG docker $USER
-
-# Применить изменения группы (или перелогиниться)
-newgrp docker
-
-# Проверить
-docker --version
-docker compose version
+curl -fsSL https://get.docker.com | sh
 ```
 
----
-
-### Шаг 3 — Установи Caddy
+### 2. Установи Caddy
 
 ```bash
-# Добавить репозиторий Caddy
-sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' \
-  | sudo gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' \
-  | sudo tee /etc/apt/sources.list.d/caddy-stable.list
-
-# Установить
-sudo apt update
-sudo apt install -y caddy
-
-# Проверить статус
-sudo systemctl status caddy
+apt install -y caddy
 ```
 
----
-
-### Шаг 4 — Склонируй репозиторий
+### 3. Склонируй репозиторий и запусти
 
 ```bash
-# Клонировать в /opt (стандартное место для приложений)
-sudo git clone https://github.com/Popugtop/popugvpn-landing.git /opt/popugvpn-landing
-
-# Дать права своему пользователю
-sudo chown -R $USER:$USER /opt/popugvpn-landing
-
+git clone https://github.com/Popugtop/popugvpn-landing.git /opt/popugvpn-landing
 cd /opt/popugvpn-landing
-```
-
----
-
-### Шаг 5 — Запусти Docker-контейнер
-
-```bash
-# Собрать образ и запустить в фоне
 docker compose up -d --build
-
-# Проверить что контейнер запущен
-docker compose ps
-
-# Убедиться что сайт отдаёт ответ локально
-curl -I http://localhost:8080
-# должно вернуть: HTTP/1.1 200 OK
 ```
 
----
+### 4. Настрой Caddy
 
-### Шаг 6 — Настрой Caddy
-
-```bash
-# Открыть Caddyfile для редактирования
-sudo nano /etc/caddy/Caddyfile
-```
-
-Удали всё что там есть по умолчанию и вставь:
+Открой `/etc/caddy/Caddyfile` и замени содержимое на:
 
 ```caddy
 popugvpn.app, www.popugvpn.app {
     reverse_proxy localhost:8080
-
     encode zstd gzip
-
-    header {
-        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-        X-Content-Type-Options "nosniff"
-        X-Frame-Options "SAMEORIGIN"
-        Referrer-Policy "strict-origin-when-cross-origin"
-        -Server
-    }
 }
 ```
 
-> Готовый блок также лежит в файле `Caddyfile_snippet.txt` в репозитории.
-
-Сохрани файл (`Ctrl+O`, `Enter`, `Ctrl+X`) и примени конфиг:
+Примени:
 
 ```bash
-# Проверить синтаксис без применения
-sudo caddy validate --config /etc/caddy/Caddyfile
-
-# Применить конфиг
-sudo systemctl reload caddy
-
-# Проверить что Caddy работает
-sudo systemctl status caddy
+systemctl reload caddy
 ```
 
-Caddy автоматически получит TLS-сертификат от Let's Encrypt — обычно за 10–30 секунд.
+Готово — сайт работает на `https://popugvpn.app`. Caddy сам получит TLS-сертификат.
 
 ---
 
-### Шаг 7 — Проверь результат
-
-Открой в браузере:
-- `https://popugvpn.app` — должен работать с замком (HTTPS)
-- `https://www.popugvpn.app` — должен открываться так же
-
-Проверить сертификат через командную строку:
-
-```bash
-curl -I https://popugvpn.app
-# HTTP/2 200 — сайт работает с HTTPS
-```
-
----
-
-### Обновление сайта после изменений в коде
+### Обновление после изменений
 
 ```bash
 cd /opt/popugvpn-landing
-
-# Получить изменения из GitHub
 git pull
-
-# Пересобрать и перезапустить контейнер
 docker compose up -d --build
 ```
-
-Сайт будет недоступен ~10–20 секунд пока пересобирается образ.
 
 ---
 
 ### Полезные команды
 
 ```bash
-# Логи контейнера в реальном времени
-docker compose logs -f landing
-
-# Перезапустить контейнер без пересборки
-docker compose restart landing
-
-# Остановить
-docker compose down
-
-# Посмотреть занятое место образами
-docker images
-
-# Удалить старые неиспользуемые образы
-docker image prune -f
+docker compose logs -f landing   # логи в реальном времени
+docker compose restart landing   # перезапустить без пересборки
+docker compose down              # остановить
 ```
-
----
-
-### Автозапуск при перезагрузке сервера
-
-Docker-контейнер уже настроен на автозапуск (`restart: always` в `docker-compose.yml`).
-Caddy тоже запускается автоматически как systemd-сервис.
-
-Проверить:
-
-```bash
-# После перезагрузки сервера всё должно подняться само
-sudo reboot
-
-# После перезагрузки проверить
-docker compose -f /opt/popugvpn-landing/docker-compose.yml ps
-sudo systemctl status caddy
-```
-
----
-
-### Возможные проблемы
-
-**Caddy не получает сертификат**
-- Убедись что DNS уже указывает на сервер: `dig popugvpn.app`
-- Порты 80 и 443 должны быть открыты: `sudo ufw allow 80 && sudo ufw allow 443`
-- Проверь логи Caddy: `sudo journalctl -u caddy -n 50`
-
-**Сайт не открывается после деплоя**
-- Проверь что контейнер работает: `docker compose ps`
-- Проверь логи контейнера: `docker compose logs landing`
-- Проверь что порт 8080 слушается: `ss -tlnp | grep 8080`
-
-**Ошибка при сборке Docker-образа**
-- Проверь свободное место на диске: `df -h`
-- Попробуй очистить Docker-кэш: `docker system prune -f`
 
 ---
 
