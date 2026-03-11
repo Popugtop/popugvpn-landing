@@ -1,7 +1,9 @@
 {
   "brand": {
     "name": "PopugVPN",
-    "cabinetUrl": "https://web.popugvpn.app/"
+    "cabinetUrl": "https://web.popugvpn.app/",
+    "telegramChannel": "https://t.me/PopugVPN",
+    "telegramBot": "https://t.me/PopugVPN_bot"
   },
   "hero": {
     "title": "Свободный интернет без границ",
