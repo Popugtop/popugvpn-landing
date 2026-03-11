@@ -15,7 +15,7 @@ export default function App() {
       <YandexMetrika id={config.analytics.yandexMetrikaId} />
       <Header brand={config.brand} hero={config.hero} />
       <main>
-        <Hero hero={config.hero} cabinetUrl={config.brand.cabinetUrl} telegramChannel={config.brand.telegramChannel} />
+        <Hero hero={config.hero} cabinetUrl={config.brand.cabinetUrl} telegramChannel={config.brand.telegramChannel} telegramBot={config.brand.telegramBot} />
         <Marquee items={config.marquee} />
         <Trial trial={config.trial} cabinetUrl={config.brand.cabinetUrl} />
         <Features features={config.features} />

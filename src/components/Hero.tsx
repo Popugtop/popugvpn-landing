@@ -5,6 +5,7 @@ interface Props {
   hero: { title: string; subtitle: string; buttonText: string }
   cabinetUrl: string
   telegramChannel: string
+  telegramBot: string
 }
 
 const floatingBadges = [
@@ -13,7 +14,7 @@ const floatingBadges = [
   { icon: Globe,  label: '11 локаций'},
 ]
 
-export default function Hero({ hero, cabinetUrl, telegramChannel }: Props) {
+export default function Hero({ hero, cabinetUrl, telegramChannel, telegramBot }: Props) {
   return (
     <section className="relative overflow-hidden pt-16">
       <div className="pointer-events-none absolute inset-0 bg-hero-glow" />
@@ -57,16 +58,15 @@ export default function Hero({ hero, cabinetUrl, telegramChannel }: Props) {
               >
                 Смотреть тарифы
               </a>
-              <a
-                href={telegramChannel}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-xl border border-border-subtle px-5 py-3.5 text-base font-medium text-slate-400 transition-all duration-200 hover:border-sky-500/40 hover:bg-sky-500/10 hover:text-sky-400"
-              >
-                <Send className="h-4 w-4" />
-                Канал
-              </a>
             </div>
+
+            <p className="mt-4 flex items-center gap-1.5 text-sm text-slate-500">
+              <Send className="h-3.5 w-3.5 text-sky-500/70" />
+              Мы в Telegram:
+              <a href={telegramChannel} target="_blank" rel="noopener noreferrer" className="text-slate-400 underline-offset-2 hover:text-sky-400 hover:underline transition-colors">Канал</a>
+              <span className="text-slate-700">·</span>
+              <a href={telegramBot} target="_blank" rel="noopener noreferrer" className="text-slate-400 underline-offset-2 hover:text-sky-400 hover:underline transition-colors">Бот</a>
+            </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-3 lg:justify-start">
               {floatingBadges.map(({ icon: Icon, label }) => (
