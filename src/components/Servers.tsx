@@ -25,7 +25,7 @@ export default function Servers({ servers }: Props) {
             Серверы
           </div>
           <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            {'11 '}
+            {servers.length}{' '}
             <span className="bg-accent-gradient bg-clip-text text-transparent">локаций</span>
           </h2>
           <p className="mt-2 text-sm text-slate-500">Все серверы доступны на любом тарифе</p>

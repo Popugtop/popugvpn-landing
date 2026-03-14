@@ -11,16 +11,16 @@ interface Plan {
 interface Props {
   pricing: Plan[]
   cabinetUrl: string
+  serversCount: number
 }
 
-const perks = [
-  'Протокол VLESS + Reality',
-  'Все 11 локаций',
-  'Без ограничений по скорости',
-  'Поддержка 24/7',
-]
-
-export default function Pricing({ pricing, cabinetUrl }: Props) {
+export default function Pricing({ pricing, cabinetUrl, serversCount }: Props) {
+  const perks = [
+    'Протокол VLESS + Reality',
+    `Все ${serversCount} локаций`,
+    'Без ограничений по скорости',
+    'Поддержка 24/7',
+  ]
   const { ref, visible } = useScrollReveal()
 
   return (

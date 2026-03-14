@@ -6,15 +6,15 @@ interface Props {
   cabinetUrl: string
   telegramChannel: string
   telegramBot: string
+  serversCount: number
 }
 
-const floatingBadges = [
-  { icon: ShieldCheck, label: 'Приватность' },
-  { icon: Zap,    label: '1 Gbit/s'  },
-  { icon: Globe,  label: '11 локаций'},
-]
-
-export default function Hero({ hero, cabinetUrl, telegramChannel, telegramBot }: Props) {
+export default function Hero({ hero, cabinetUrl, telegramChannel, telegramBot, serversCount }: Props) {
+  const floatingBadges = [
+    { icon: ShieldCheck, label: 'Приватность' },
+    { icon: Zap,    label: '1 Gbit/s'  },
+    { icon: Globe,  label: `${serversCount} локаций` },
+  ]
   return (
     <section className="relative overflow-hidden pt-16">
       <div className="pointer-events-none absolute inset-0 bg-hero-glow" />
