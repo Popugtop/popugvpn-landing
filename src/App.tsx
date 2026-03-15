@@ -18,7 +18,7 @@ export default function App() {
         <Hero hero={config.hero} cabinetUrl={config.brand.cabinetUrl} telegramChannel={config.brand.telegramChannel} telegramBot={config.brand.telegramBot} serversCount={config.servers.length} />
         <Marquee items={config.marquee} />
         <Trial trial={config.trial} cabinetUrl={config.brand.cabinetUrl} />
-        <Features features={config.features} />
+        <Features features={config.features} serversCount={config.servers.length} />
         <Servers servers={config.servers} />
         <Pricing pricing={config.pricing} cabinetUrl={config.brand.cabinetUrl} serversCount={config.servers.length} />
       </main>

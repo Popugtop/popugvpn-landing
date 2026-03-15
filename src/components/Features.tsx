@@ -13,9 +13,12 @@ const accentColors: Record<string, { bg: string; text: string; shadow: string }>
 }
 
 interface Feature { icon: string; title: string; desc: string }
-interface Props    { features: Feature[] }
+interface Props    { features: Feature[]; serversCount: number }
 
-export default function Features({ features }: Props) {
+export default function Features({ features, serversCount }: Props) {
+  const resolvedFeatures = features.map(f =>
+    f.icon === 'globe' ? { ...f, title: `${serversCount} локаций` } : f
+  )
   const { ref, visible } = useScrollReveal()
 
   return (
@@ -35,7 +38,7 @@ export default function Features({ features }: Props) {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {features.map((feature, i) => {
+          {resolvedFeatures.map((feature, i) => {
             const Icon   = iconMap[feature.icon] ?? Shield
             const colors = accentColors[feature.icon] ?? accentColors.shield
 
